@@ -1,75 +1,33 @@
-<!-- <div class="p-8 bg-primary-50"> -->
-  <!-- Prueba de colores primary -->
-  <!-- <div class="space-y-4 mb-8">
-    <h2 class="text-2xl font-bold text-primary-700">Colores Primary</h2>
-    <div class="flex gap-2">
-      <div class="w-20 h-20 bg-primary-50 border border-gray-300 flex items-center justify-center text-xs">50</div>
-      <div class="w-20 h-20 bg-primary-100 flex items-center justify-center text-xs">100</div>
-      <div class="w-20 h-20 bg-primary-200 flex items-center justify-center text-xs">200</div>
-      <div class="w-20 h-20 bg-primary-300 flex items-center justify-center text-xs">300</div>
-      <div class="w-20 h-20 bg-primary-400 text-white flex items-center justify-center text-xs">400</div>
-      <div class="w-20 h-20 bg-primary-500 text-white flex items-center justify-center text-xs">500</div>
-      <div class="w-20 h-20 bg-primary-600 text-white flex items-center justify-center text-xs">600</div>
-      <div class="w-20 h-20 bg-primary-700 text-white flex items-center justify-center text-xs">700</div>
-      <div class="w-20 h-20 bg-primary-800 text-white flex items-center justify-center text-xs">800</div>
-      <div class="w-20 h-20 bg-primary-900 text-white flex items-center justify-center text-xs">900</div>
-    </div>
-  </div> -->
+@if (!isAuthPage()) {
+<div class="min-h-screen bg-gray-50">
+  <!-- Sidebar -->
+  <app-sidebar [isOpen]="sidebarOpen()" (toggleSidebar)="toggleSidebar()"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0"
+    [class.translate-x-0]="sidebarOpen()" [class.-translate-x-full]="!sidebarOpen()">
+  </app-sidebar>
 
-  <!-- Prueba de colores semánticos -->
-  <!-- <div class="space-y-4 mb-8">
-    <h2 class="text-2xl font-bold text-primary-700">Colores Semánticos</h2>
-    <div class="flex gap-2">
-      <div class="w-32 h-20 bg-success text-white flex items-center justify-center">Success</div>
-      <div class="w-32 h-20 bg-danger text-white flex items-center justify-center">Danger</div>
-      <div class="w-32 h-20 bg-warning text-gray-800 flex items-center justify-center">Warning</div>
-      <div class="w-32 h-20 bg-info text-white flex items-center justify-center">Info</div>
-    </div>
-  </div> -->
-
-  <!-- Prueba de botones personalizados -->
-  <!-- <div class="space-y-4 mb-8">
-    <h2 class="text-2xl font-bold text-primary-700">Botones Personalizados</h2>
-    <div class="flex gap-2">
-      <button class="btn btn-primary">Primary</button>
-      <button class="btn btn-success">Success</button>
-      <button class="btn btn-danger">Danger</button>
-      <button class="btn btn-warning">Warning</button>
-      <button class="btn btn-secondary">Secondary</button>
-    </div>
-  </div> -->
-
-  <!-- Prueba de card -->
-  <!-- <div class="space-y-4 mb-8">
-    <h2 class="text-2xl font-bold text-primary-700">Card</h2>
-    <div class="card max-w-md">
-      <div class="card-header">
-        <h3 class="font-bold text-primary-700">Card Header</h3>
-      </div>
-      <div class="card-body">
-        <p>Este es el contenido de la tarjeta usando las clases personalizadas.</p>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- Prueba de badges -->
-  <!-- <div class="space-y-4 mb-8">
-    <h2 class="text-2xl font-bold text-primary-700">Badges</h2>
-    <div class="flex gap-2">
-      <span class="badge badge-success">Success</span>
-      <span class="badge badge-danger">Danger</span>
-      <span class="badge badge-warning">Warning</span>
-      <span class="badge badge-info">Info</span>
-    </div>
-  </div> -->
-
-  <!-- Prueba de animaciones -->
-  <!-- <div class="space-y-4">
-    <h2 class="text-2xl font-bold text-primary-700">Animaciones</h2>
-    <div class="flex gap-4">
-      <div class="animate-fade-in bg-primary-500 text-white p-4 rounded">Fade In</div>
-      <div class="animate-slide-in bg-primary-600 text-white p-4 rounded">Slide In</div>
-    </div>
+  <!-- Overlay para cerrar sidebar en dispositivos móviles -->
+  @if (sidebarOpen()) {
+  <div class="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 lg:hidden" (click)="closeSidebar()">
   </div>
-</div> -->
-<router-outlet />
+  }
+
+  <!-- Contenido principal -->
+  <div class="lg:ml-64">
+    <!-- Header -->
+    <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+
+    <!-- Main content -->
+    <main class="p-6">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+}
+
+<!-- Auth pages sin layout -->
+@if (isAuthPage()) {
+<div class="min-h-screen">
+  <router-outlet></router-outlet>
+</div>
+}

@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	apiUrl: 'https://apigateway-qa.titularizadora.com'
+	apiUrl: 'http://localhost:8090/api'
 };
